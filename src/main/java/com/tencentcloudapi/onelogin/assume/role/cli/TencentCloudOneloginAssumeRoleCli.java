@@ -527,6 +527,11 @@ public class TencentCloudOneloginAssumeRoleCli {
 
         SAMLEndpointResponse samlEndpointResponse = olClient.getSAMLAssertion(oneloginUsernameOrEmail, oneloginPassword,
                 appId, oneloginDomain, ip);
+
+        if (samlEndpointResponse == null) {
+            throw new Exception("SAML assertion failed, probably due to incorrect password");
+        }
+
         String status = samlEndpointResponse.getType();
 
         // When the status is null, then the request failed.
